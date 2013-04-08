@@ -1,8 +1,8 @@
 <%=ENV['RAILS_ENV']+':'%>
 <%=' adapter: postgresql'%>
 <%=' host: '+ENV['HOST']%>
-<%=' database: aubproxy'%>
-<%=' username: aubproxy'%>
+<%=' database: '+ENV['DATABASE_NAME']%>
+<%=' username: '+ENV['DATABASE_USER']%>
 <%=' password: '+ENV['DATABASE_PASSWORD']%>
 <%=' pool: 5'%>
 <%=' timeout: 5000'%>

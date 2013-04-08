@@ -12,14 +12,16 @@ class ProxyController < ApplicationController
   
   def index      
     ### Verify that there is a x-lquery parameter ###
-    #render_400(true) and return if not params.has_key?("x-lquery") #TODO: uncomment this!
+    render_400(true) and return if not params.has_key?("x-lquery")
     
     ### Assign paramters to respective variables ###
     max_records = (params.has_key?(:maximumRecords) ? params[:maximumRecords].to_i : 10)
     start_record = (params.has_key?(:startRecord) ? params[:startRecord].to_i : 0)
-    use_facets = (params.has_key?("x-nofacets") ? params["x-nofacets"].to_i : "0")
+    use_facets = (params.has_key?("x-nofacets") ? params["x-nofacets"].to_s : "0")
     facet_def = (params.has_key?("x-facet_def") ? params["x-facet_def"] : "")
     query = params["x-lquery"]
+    render_400(true) and return if use_facets =~ /\D/
+    
     @start_time = Time.now.to_f
     
     ### Cache ###
@@ -76,8 +78,8 @@ class ProxyController < ApplicationController
       # Cache xml (if not already cached)
       Rails.cache.fetch @cache_id,:expires_in => (Aubproxy::Application.config.cache_duration).minute do
         {
-        'solr' => doc, # This may be redundant unless cache is configured to re-transform the old solr-response.
-        'pnx' => pnx_doc
+        'solr' => doc.to_s, # This may be redundant unless cache is configured to re-transform the old solr-response.
+        'pnx' => pnx_doc.to_s
         }
       end
     end
