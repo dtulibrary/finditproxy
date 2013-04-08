@@ -5,7 +5,6 @@ gem 'rails', '3.2.12'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-#gem 'sqlite3'
 gem 'pg'
 gem 'rsolr'
 #gem 'rsolr-ext'
@@ -20,6 +19,7 @@ group :test, :development do
 end
 
 group :development do
+  gem 'sqlite3'
   gem 'brakeman'
   gem 'rails_best_practices'
 end
