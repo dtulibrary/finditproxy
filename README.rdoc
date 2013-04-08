@@ -1,8 +1,8 @@
-== DADS AUB Proxy
-The purpose of the DADS AUB Proxy is to enable Primo installations to search in DTIC's Solr, while transforming search results to PNX format making them understandable for Primo.
+== DADS Primo Proxy
+The purpose of the DADS Primo Proxy is to enable Primo installations to search in DTIC's Solr, while transforming search results to PNX format making them understandable for Primo.
 
 == Requirements
-In order to use DADS AUB Proxy:
+In order to use DADS Primo Proxy:
 1. The steps described on our wiki (https://infoshare.dtv.dk/twiki/bin/view/DADS/3rdNodeInterface) must have been completed.
 2. The given Primo installation must have installed the DTIC 3rd Node Adapter.
 
