@@ -1,0 +1,14 @@
+solr :
+<%=' url : '+ENV['SOLR_URL']%>
+<%=' request_handler_search : '+ENV['SOLR_RH_SEARCH']%>
+authentication :
+<%=' username : '+ENV['AUTH_NAME']%>
+<%=' password : '+ENV['AUTH_PASS']%>
+mapping:
+<%ENV['mapping'].split(';').each do |mapping|%>
+<%mapping.split(',').each do |pair|%> 
+<%=' '+pair[0]+' : '%>
+<%='  xsl : '+pair[1]%>
+<%='  filter : '+pair[2]%>
+<%end%>
+<%end%>

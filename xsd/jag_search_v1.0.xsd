@@ -1,0 +1,437 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema  xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.exlibrisgroup.com/xsd/jaguar/search"
+            xmlns:pnx="http://www.exlibrisgroup.com/xsd/primo/primo_nm_bib"
+            xsi:schemaLocation="http://www.exlibrisgroup.com/xsd/jaguar/search
+                                http://www.exlibrisgroup.com/xsd/jaguar/jag_search_v1.0.xsd"
+            targetNamespace="http://www.exlibrisgroup.com/xsd/jaguar/search"
+            elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
+    <xs:import namespace="http://www.exlibrisgroup.com/xsd/primo/primo_nm_bib" schemaLocation="xsd/primo_nm_bib.xsd"/>
+ 
+    <xs:element name="BADDOC">
+        <xs:complexType/>
+    </xs:element>
+ 
+<xs:element name="FACETLIST">
+  <xs:complexType>
+    <xs:sequence>
+              <xs:element ref="FACET" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="FACET_COUNT" use="required" type="xs:string"/>
+    <xs:attribute name="ACCURATE_COUNTERS" default="true" type="xs:boolean"/>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="FACET">
+  <xs:complexType>
+    <xs:sequence>
+              <xs:element ref="FACET_VALUES" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="NAME" use="required" type="xs:string"/>
+    <xs:attribute name="COUNT" use="required" type="xs:int"/>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="CLUSTER">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="NODE" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+ 
+    <xs:attribute name="TYPE" use="required" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="CLUSTERS">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="CLUSTER" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="EMPTYRESULTSET">
+  <xs:complexType>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="ERROR">
+  <xs:complexType mixed="true">
+    <xs:sequence>
+    </xs:sequence>
+ 
+    <xs:attribute name="CODE" use="required" type="xs:string"/>
+    <xs:attribute name="MESSAGE" use="required" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="FIELD">
+    <xs:complexType>
+    <xs:sequence>
+              <xs:element ref="VALUES" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="NAME" use="required" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="GETIT">
+<xs:complexType>
+        <xs:attribute name="deliveryCategory" use="optional" type="xs:string"/>
+        <xs:attribute name="GetIt1" use="required" type="xs:string"/>
+        <xs:attribute name="GetIt2" use="required" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="LIBRARIES">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="LIBRARY" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="LIBRARY">
+    <xs:complexType>
+       <xs:sequence>
+        <xs:element name="institution" type="xs:string" maxOccurs="1" minOccurs="0"/>
+        <xs:element name="library" type="xs:string" maxOccurs="1" minOccurs="0"/>
+        <xs:element name="status" type="xs:string" maxOccurs="1" minOccurs="0"/>
+        <xs:element name="collection" type="xs:string" maxOccurs="1" minOccurs="0"/>
+        <xs:element name="callNumber" type="xs:string" maxOccurs="1" minOccurs="0"/>
+        <xs:element name="url" type="xs:string" maxOccurs="1" minOccurs="0"/>
+      </xs:sequence>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="LINKS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="openurl" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="backlink" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="linktorsrc" type="xs:string"  maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="thumbnail" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="linktotoc" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="linktoabstract" type="xs:string" maxOccurs="unbounded"  minOccurs="0"/>
+        <xs:element name="openurlfulltext" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="openurlservice" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="linktoholdings" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="linktorequest" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="linktoreview" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="linktoprice" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="addlink" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="linktouc" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="linktofa" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln01" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln02" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln03" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln04" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln05" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln06" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln07" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln08" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln09" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln10" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln11" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln12" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln13" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln14" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln15" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln16" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln17" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln18" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln19" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln20" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln21" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln22" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln23" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln24" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln25" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln26" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln27" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln28" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln29" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln30" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln31" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln32" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln33" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln34" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln35" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln36" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln37" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln38" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln39" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln40" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln41" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln42" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln43" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln44" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln45" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln46" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln47" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln48" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln49" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="lln50" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+  </xs:sequence>
+ </xs:complexType>
+</xs:element>
+ 
+ 
+ 
+<xs:element name="FOLDER">
+    <xs:complexType>
+        <xs:attribute name="folderId" use="required" type="xs:string"/>
+         <xs:attribute name="folderName" use="required" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="DOC">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="FIELD" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element ref="pnx:PrimoNMBib" minOccurs="1" maxOccurs="1"/>
+      <xs:element ref="GETIT" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element ref="LIBRARIES" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element ref="LINKS" minOccurs="0" maxOccurs="1"/>
+      <xs:element ref="FOLDER" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+ 
+    <xs:attribute name="MOREHITS" use="required" type="xs:string"/>
+    <xs:attribute name="NO" use="required" type="xs:string"/>
+    <xs:attribute name="RANK" use="required" type="xs:float"/>
+    <xs:attribute name="SITEID" use="required" type="xs:string"/>
+    <xs:attribute name="ID" use="required" type="xs:int"/>
+    <xs:attribute name="LOCAL" type="xs:boolean" default="true"/>
+    <xs:attribute name="SEARCH_ENGINE" type="xs:string"/>
+    <xs:attribute name="SEARCH_ENGINE_TYPE" type="xs:string"/>
+    <xs:attribute name="EXPLANATION" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="LABEL">
+  <xs:complexType mixed="true">
+    <xs:sequence>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="LABELS">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="LABEL" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+ 
+    <xs:attribute name="COUNT" use="required" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="MEMBER">
+  <xs:complexType>
+    <xs:attribute name="OFFSET" use="required" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="MEMBERS">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="MEMBER" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+ 
+    <xs:attribute name="COUNT" use="required" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="NAVIGATION">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="NAVIGATIONENTRY" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+ 
+    <xs:attribute name="ENTRIES" use="required" type="xs:string"/>
+    <xs:attribute name="DOCS" use="required" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="NAVIGATIONELEMENT">
+  <xs:complexType>
+    <xs:attribute name="COUNT" use="required" type="xs:string"/>
+    <xs:attribute name="MODIFIER" use="required" type="xs:string"/>
+    <xs:attribute name="NAME" use="required" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="NAVIGATIONELEMENTS">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="NAVIGATIONELEMENT" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+ 
+    <xs:attribute name="COUNT" use="required" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="NAVIGATIONENTRY">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="NAVIGATIONELEMENTS"/>
+    </xs:sequence>
+ 
+    <xs:attribute name="DISPLAYNAME" use="required" type="xs:string"/>
+    <xs:attribute name="ENTROPY" use="required" type="xs:string"/>
+    <xs:attribute name="HITCOUNT" use="required" type="xs:string"/>
+    <xs:attribute name="MAX" use="required" type="xs:string"/>
+    <xs:attribute name="MEAN" use="required" type="xs:string"/>
+    <xs:attribute name="MIN" use="required" type="xs:string"/>
+    <xs:attribute name="MODIFIER" use="required" type="xs:string"/>
+    <xs:attribute name="NAME" use="required" type="xs:string"/>
+    <xs:attribute name="RATIO" use="required" type="xs:string"/>
+    <xs:attribute name="SAMPLECOUNT" use="required" type="xs:string"/>
+    <xs:attribute name="SCORE" use="required" type="xs:string"/>
+    <xs:attribute name="TYPE" use="required" type="xs:string"/>
+    <xs:attribute name="UNIT" use="required" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="NEXTPAGE">
+  <xs:complexType>
+    <xs:attribute name="FIRSTHIT" use="required" type="xs:string"/>
+    <xs:attribute name="LASTHIT" use="required" type="xs:string"/>
+    <xs:attribute name="URL" use="required" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="NODE">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="LABELS" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element ref="MEMBERS" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+ 
+    <xs:attribute name="EXTHITCNT" type="xs:string"/>
+    <xs:attribute name="ID" use="required" type="xs:string"/>
+    <xs:attribute name="SUBMEMCNT" use="required" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="PAGENAVIGATION">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="PREVPAGE" minOccurs="0" maxOccurs="1"/>
+      <xs:element ref="NEXTPAGE" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="PREVPAGE">
+  <xs:complexType>
+    <xs:attribute name="FIRSTHIT" use="required" type="xs:string"/>
+    <xs:attribute name="LASTHIT" use="required" type="xs:string"/>
+    <xs:attribute name="URL" use="required" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="QUERYTRANSFORM">
+  <xs:complexType>
+    <xs:attribute name="ACTION" use="required" type="xs:string"/>
+    <xs:attribute name="CUSTOM" use="required" type="xs:string"/>
+    <xs:attribute name="MESSAGE" use="required" type="xs:string"/>
+    <xs:attribute name="MESSAGEID" use="required" type="xs:string"/>
+    <xs:attribute name="NAME" use="required" type="xs:string"/>
+    <xs:attribute name="QUERY" use="required" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="QUERYTRANSFORMS">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="QUERYTRANSFORM" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="RESULT">
+  <xs:complexType>
+    <xs:choice>
+      <xs:sequence>
+        <xs:element ref="QUERYTRANSFORMS"/>
+        <xs:element ref="FACETLIST" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="NAVIGATION" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="CLUSTERS"/>
+        <xs:choice>
+          <xs:sequence>
+            <xs:element ref="DOCSET"/>
+            <xs:element ref="PAGENAVIGATION"/>
+          </xs:sequence>
+          <xs:element ref="EMPTYRESULTSET"/>
+        </xs:choice>
+      </xs:sequence>
+      <xs:element ref="ERROR"/>
+    </xs:choice>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="DOCSET">
+  <xs:complexType>
+    <xs:choice minOccurs="1" maxOccurs="unbounded">
+      <xs:element ref="DOC"/>
+      <xs:element ref="BADDOC"/>
+    </xs:choice>
+ 
+    <xs:attribute name="FIRSTHIT" use="required" type="xs:string"/>
+    <xs:attribute name="HITS" use="required" type="xs:string"/>
+    <xs:attribute name="LASTHIT" use="required" type="xs:string"/>
+    <xs:attribute name="MAXRANK" use="required" type="xs:string"/>
+    <xs:attribute name="HIT_TIME" use="required" type="xs:long"/>
+    <xs:attribute name="TOTAL_TIME" use="required" type="xs:long"/>
+    <xs:attribute name="TOTALHITS" use="required" type="xs:int"/>
+    <xs:attribute name="SEARCHKEY"  type="xs:string"/>
+    <xs:attribute name="IS_LOCAL"  type="xs:boolean"/>
+    <xs:attribute name="MAX_TOTALHITS" type="xs:int"/>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="JAGROOT">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="RESULT"/>
+      <xs:element name="searchToken" type="xs:string" />
+    </xs:sequence>
+ 
+    <xs:attribute name="NAME" use="required" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="SEGMENTS">
+  <xs:complexType>
+    <xs:sequence>      
+      <xs:element ref="JAGROOT" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="VALUES">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="VALUE" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="FACET_VALUES">
+  <xs:complexType>
+    <xs:attribute name="KEY" use="required" type="xs:string"/>
+    <xs:attribute name="VALUE" use="required" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+ 
+<xs:element name="VALUE">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element name="CONTENT" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="NAME" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+ 
+</xs:schema>
