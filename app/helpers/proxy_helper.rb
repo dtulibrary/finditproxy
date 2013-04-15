@@ -14,16 +14,6 @@ module ProxyHelper
   def xsl_mapping(facet_def)
     API_CONFIG['mapping'][facet_def]['xsl']
   end
-
-  def lookup_source(facet_def)    
-    logger.debug "  Looking for mapping for #{facet_def}"
-    if API_CONFIG['mapping'].has_key?(facet_def)
-      if API_CONFIG['mapping'][facet_def].has_key?('filter') and API_CONFIG['mapping'][facet_def].has_key?('xsl')
-        return [API_CONFIG['mapping'][facet_def]['filter'], API_CONFIG['mapping'][facet_def]['xsl']]
-      end
-    end
-    nil
-  end
   
   ### Solr ###
   def query_solr(params, facet_def)
