@@ -13,7 +13,7 @@ class ProxyController < ApplicationController
   def index      
     ### Verify API key
     render_400 and return unless has_mapping(params["x-facet_def"])
-
+    
     ### Verify that there is a x-lquery parameter ###
     render_400(true) and return unless params["x-lquery"]
 
@@ -35,9 +35,9 @@ class ProxyController < ApplicationController
     else
       
       ### Query Solr and transform result to PNX
-      solr_response = query_solr(solr_params, solr_params[:x_facet_def])
+      solr_response = query_solr(solr_params, params["x-facet_def"])
 
-      pnx_response = transform_and_validate(solr_response, solr_params[:x_facet_def])
+      pnx_response = transform_and_validate(solr_response, params["x-facet_def"])
       
       Rails.cache.write cache_key, 
                         { 'pnx' => pnx_response.to_s }, 
