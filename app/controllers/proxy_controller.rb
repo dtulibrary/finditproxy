@@ -22,7 +22,7 @@ class ProxyController < ApplicationController
       :rows         => (params["maximumRecords"]                           || 10).to_i,
       :start        => (params["startRecord"]                              ||  1).to_i - 1,
       :x_use_facets => (params["x-nofacets"]                               ||  1).to_i,
-      :fq           => "access_ss:#{filter_mapping(params["x-facet_def"])} || "dtupub"
+      :fq           => "access_ss:#{filter_mapping(params["x-facet_def"])}" || "dtupub"
     }
 
 
