@@ -16,9 +16,6 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-/jetty/*.log
-/jetty/logs/*
-/jetty/solr/*/data/index/*
 
 # Ignore Aptana / Eclipse project file
 .project

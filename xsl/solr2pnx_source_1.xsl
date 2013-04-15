@@ -6,24 +6,17 @@
 	xmlns:pnx="http://www.exlibrisgroup.com/xsd/primo/primo_nm_bib"
 	xmlns:search="http://www.exlibrisgroup.com/xsd/jaguar/search" 
 	exclude-result-prefixes="">
-		
+    <xsl:import href="xsl/solr2pnx_global.xsl"/>
+    		
     <xsl:output method="xml" version="1.0" encoding="utf-8" indent="yes"/>
-    
-    <xsl:param name="pnxResultSize" />
-    <xsl:param name="pnxFirstHit" />
-    <xsl:param name="pnxLastHit" />
-    <xsl:param name="pnxTotalHits" />
-    <xsl:param name="pnxFacets" /> <!-- TODO: make facets dependent upon facet parameter -->
-    
-    <xsl:include href="xsl/solr2pnx_global.xsl"/>
-    
+        
     <xsl:template match="doc">
     	<xsl:variable name="vPos">
    			<xsl:number from="/" level="any" count="doc" />
   		</xsl:variable>
-  		
+
   		<xsl:variable name="docNumber">
-   			<xsl:value-of select="number($pnxFirstHit) + number($vPos) - number(1)" />
+   			<xsl:value-of select="$pnxFirstHit + $vPos - 1" />
   		</xsl:variable>
   		
 		<search:DOC xmlns:sear="http://www.exlibrisgroup.com/xsd/jaguar/search" xmlns:prim="http://www.exlibrisgroup.com/xsd/primo/primo_nm_bib">

@@ -1,4 +1,4 @@
-Aubproxy::Application.configure do
+PrimoProxy::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
@@ -70,4 +70,8 @@ Aubproxy::Application.configure do
   
   # Set (custom) application specific configurations
   config.cache_duration = 1 # (in minutes) (one week = 60*24*7)
+end
+
+if File.exists? File.dirname(__FILE__) + '/../application.local.rb'
+  require File.dirname(__FILE__) + '/../application.local.rb'
 end

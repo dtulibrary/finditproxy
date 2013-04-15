@@ -1,5 +1,4 @@
 require 'bundler/capistrano'
-load 'deploy/assets'
 
 set :rails_env, ENV['RAILS_ENV'] || 'staging'
 set :application, ENV['HOST'] || 'primoproxy.vagrant.vm'
@@ -39,12 +38,13 @@ end
 
 # tasks
 
-before "deploy:assets:precompile", "config:symlink"
+before "deploy:migrate", "config:symlink"
 after "deploy:update", "deploy:cleanup"
 
 namespace :config do
   desc "linking configuration to current release"
   task :symlink do
+    run "ln -nfs #{deploy_to}/shared/config/application.local.rb #{release_path}/config/application.local.rb"
     run "ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
     run "ln -nfs #{deploy_to}/shared/config/api.yml #{release_path}/config/api.yml"
   end

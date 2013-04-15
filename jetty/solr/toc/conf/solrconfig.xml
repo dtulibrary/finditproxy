@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
     <abortOnConfigurationError>${solr.abortOnConfigurationError:true}</abortOnConfigurationError>
-    <luceneMatchVersion>LUCENE_40</luceneMatchVersion>
+    <luceneMatchVersion>LUCENE_42</luceneMatchVersion>
     <dataDir>${solr.data.dir:}</dataDir>
     <directoryFactory name="DirectoryFactory" class="${solr.directoryFactory:solr.StandardDirectoryFactory}"/>
 
@@ -21,23 +21,34 @@
             <int name="maxMergeAtOnceExplicit">30</int>
             <int name="maxMergeAtOnce">10</int>
             <double name="segmentsPerTier">20</double>
-            <double name="maxMergedSegmentMB">20000</double>            
+            <double name="maxMergedSegmentMB">20000</double>
         </mergePolicy>
 
-        <mergeScheduler class="org.apache.lucene.index.ConcurrentMergeScheduler">            
+        <mergeScheduler class="org.apache.lucene.index.ConcurrentMergeScheduler">
             <int name="maxMergeCount">8</int>
             <int name="maxThreadCount">8</int>
         </mergeScheduler>
-
     </indexConfig>
 
-    <updateHandler class="solr.DirectUpdateHandler2" />
+    <updateHandler class="solr.DirectUpdateHandler2">
+        <updateLog>
+            <str name="dir">${solr.ulog.dir:}</str>
+        </updateLog>
+        <autoCommit>
+            <maxTime>15000</maxTime>
+            <maxDocs>100000</maxDocs>
+            <openSearcher>false</openSearcher>
+        </autoCommit>
+    </updateHandler>
+
     <requestHandler name="/update" class="solr.UpdateRequestHandler"/>
 
     <requestDispatcher handleSelect="true">
         <requestParsers enableRemoteStreaming="false"
                         multipartUploadLimitInKB="2048000"/>
-        <httpCaching never304="true"/>
+        <httpCaching lastModFrom="openTime" etagSeed="Solr">
+            <cacheControl>max-age=86400, public, must-revalidate</cacheControl>
+        </httpCaching>
     </requestDispatcher>
 
     <query>
@@ -68,7 +79,7 @@
         <listener event="firstSearcher" class="solr.QuerySenderListener"/>
         <listener event="newSearcher" class="solr.QuerySenderListener"/>
     </query>
-        
+
     <requestHandler name="search" class="solr.SearchHandler" default="true">
         <lst name="defaults">
             <str name="echoParams">explicit</str>
@@ -76,13 +87,13 @@
             <str name="sort">issn asc,year desc,vol desc,issue asc</str>
         </lst>
     </requestHandler>
-    
-    <requestHandler name="/replication" class="solr.ReplicationHandler">
-        <lst name="master">
-            <str name="replicateAfter">startup</str>
-            <str name="replicateAfter">commit</str>
-            <str name="replicateAfter">optimize</str>
-        </lst>
+
+    <requestHandler name="/replication" class="solr.ReplicationHandler" startup="lazy" />
+
+    <requestHandler name="/get" class="solr.RealTimeGetHandler">
+      <lst name="defaults">
+        <str name="omitHeader">true</str>
+     </lst>
     </requestHandler>
 
     <requestHandler name="/admin/"

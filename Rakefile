@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Aubproxy::Application.load_tasks
+PrimoProxy::Application.load_tasks

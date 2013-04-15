@@ -1,4 +1,4 @@
-Aubproxy::Application.configure do
+PrimoProxy::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # The test environment is used exclusively to run your application's
@@ -36,8 +36,12 @@ Aubproxy::Application.configure do
   config.active_support.deprecation = :stderr
   
   # Set cache store
-  config.cache_store = :mem_cache_store
+  config.cache_store = :memory_store
   
   # Set (custom) application specific configurations
   config.cache_duration = 1 # (in minutes) (one week = 60*24*7)
+end
+
+if File.exists? File.dirname(__FILE__) + '/../application.local.rb'
+  require File.dirname(__FILE__) + '/../application.local.rb'
 end

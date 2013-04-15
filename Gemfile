@@ -2,24 +2,25 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
 gem 'pg'
 gem 'rsolr'
-#gem 'rsolr-ext'
 gem 'libxml-ruby'
 gem 'libxslt-ruby'
 gem 'nokogiri'
-gem 'rspec-rails'
+gem 'memcache-client'
+gem "gelf"
+gem "lograge"
 
 group :test, :development do
-  gem 'metastore-test_data', :git => "git://github.com/steffengodskesen/metastore-test_data.git"
   gem 'jettywrapper'
+  gem 'debugger'
+  gem 'rspec-rails'
+  gem 'autotest-rails'
+  gem 'metastore-test_data', :github => "dtulibrary/metastore-test_data"
+  gem 'sqlite3'
 end
 
 group :development do
-  gem 'sqlite3'
   gem 'brakeman'
   gem 'rails_best_practices'
 end
@@ -34,22 +35,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
-gem 'capistrano'
-gem 'rvm-capistrano'
-gem 'memcache-client'
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano'
+gem 'rvm-capistrano'
 
 # To use debugger
 # gem 'debugger'

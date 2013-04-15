@@ -6,7 +6,32 @@
 	xmlns:search="http://www.exlibrisgroup.com/xsd/jaguar/search" 
 	exclude-result-prefixes="">
                 
-    <xsl:output method="xml" version="1.0" encoding="utf-8" indent="yes"/>
+  <xsl:output method="xml" version="1.0" encoding="utf-8" indent="yes"/>
+
+	<xsl:variable name="qTime">
+		<xsl:value-of select="/response/lst[@name='responseHeader']/int[@name='QTime']"/>
+	</xsl:variable>
+						  
+	<xsl:variable name="pnxFacets">
+		<xsl:value-of select="/response/lst[@name='responseHeader']/lst[@name='params']/str[@name='x_use_facets']"/>
+	</xsl:variable>	  
+
+	<xsl:variable name="pnxResultSize">
+		<xsl:value-of select="/response/result/@numFound"/>
+	</xsl:variable>	  
+
+	<xsl:variable name="pnxNumDocs">
+		<xsl:value-of select="count(/response/result/doc)"/>
+	</xsl:variable>	  
+
+	<xsl:variable name="pnxFirstHit">
+		<xsl:value-of select="number(/response/result/@start) + 1"/>
+	</xsl:variable>	  
+
+	<xsl:variable name="pnxLastHit">
+		<xsl:value-of select="$pnxFirstHit + $pnxNumDocs - 1"/>
+	</xsl:variable>	  
+
     
 	<!-- match root -->
 	<xsl:template match="/response">
@@ -14,6 +39,7 @@
 		     at http://www.exlibrisgroup.org/display/PrimoOI/XSDs. Also, you can get
 		     example documents by using the SOAP interface (searchRequest).
 		  -->
+
 		<search:SEGMENTS>
 		  <search:JAGROOT>
 		  	<xsl:attribute name="NAME"></xsl:attribute><!--TODO: learn what this means-->
@@ -56,10 +82,6 @@ been created, then the rule will not create another PNX field.-->
 				</xsl:if>
 				<!--TODO: add clusters if needed -->
 				<search:CLUSTERS></search:CLUSTERS>
-				
-				<xsl:variable name="qTime">
-					<xsl:value-of select="lst[@name='responseHeader']/int[@name='QTime']"/>
-				</xsl:variable>
 				
 				<search:DOCSET HIT_TIME="{$qTime}" TOTAL_TIME="{$qTime}">
 					<xsl:attribute name="TOTALHITS"><xsl:value-of select="./result/@numFound" /></xsl:attribute>
