@@ -5,7 +5,7 @@ describe ProxyController do
     context "without params" do
       it "is bad request" do
         get :index
-        response.status.should == 400
+        response.status.should == 401
       end
     end
 

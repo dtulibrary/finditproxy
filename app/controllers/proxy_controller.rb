@@ -12,10 +12,10 @@ class ProxyController < ApplicationController
   
   def index      
     ### Verify API key
-    render_400 and return unless has_mapping(params["x-facet_def"])
+    unauthorized unless has_mapping(params["x-facet_def"])
     
     ### Verify that there is a x-lquery parameter ###
-    render_400(true) and return unless params["x-lquery"]
+    bad_request unless params["x-lquery"]
 
     solr_params = {
       :q            =>  params["x-lquery"]                                 || "*:*",
@@ -48,21 +48,4 @@ class ProxyController < ApplicationController
     end
   end
   
-  ### Error Messages ###
-  private
-  def render_404(perform_log=true)
-    # Perform logging.
-    #write_to_log if perform_log
-    # Render
-    render :file => "#{Rails.root}/public/404", :status => :not_found, :formats => :html
-  end
-  
-  private
-  def render_400(perform_log=true)
-    # Perform logging.
-    #write_to_log if perform_log
-    # Render
-    render :file => "#{Rails.root}/public/400", :status => :bad_request, :formats => :html
-  end
-
 end
