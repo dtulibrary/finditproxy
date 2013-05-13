@@ -1,7 +1,0 @@
-solr:
-  url: http://localhost:8983/solr/metastore
-  request_handler_search: primo
-mapping:
-  test:
-    xsl: solr2pnx_source_1.xsl
-    filter: dtu

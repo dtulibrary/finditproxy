@@ -4,15 +4,15 @@ module ProxyHelper
   
   ### XSL Mapping ### 
   def has_mapping(facet_def)
-    API_CONFIG['mapping'].has_key?(facet_def)
+    Rails.application.config.mapping.has_key?(facet_def)
   end
 
   def filter_mapping(facet_def)
-    API_CONFIG['mapping'][facet_def]['filter']
+    Rails.application.config.mapping[facet_def][:filter]
   end
 
   def xsl_mapping(facet_def)
-    API_CONFIG['mapping'][facet_def]['xsl']
+    Rails.application.config.mapping[facet_def][:xsl]
   end
   
   ### Solr ###
@@ -25,10 +25,10 @@ module ProxyHelper
 
     logger.debug "  Solr query params: #{params}"
 
-    url = API_CONFIG['solr']['url']
+    url = Rails.application.config.solr[:url]
     logger.debug "  Solr url: #{url}"
 
-    request_handler = API_CONFIG['solr']['request_handler_search']
+    request_handler = Rails.application.config.solr[:request_handler_search]
     logger.debug "  Solr request handler: #{request_handler}"
 
     solr = RSolr.connect :url => url
