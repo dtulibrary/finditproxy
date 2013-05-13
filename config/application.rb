@@ -61,11 +61,15 @@ module PrimoProxy
     
     ### API Config ###
     config.solr = {
-      :url => '',
-      :request_handler_search => ''
+      :url => 'http://localhost:8983/solr/metastore',
+      :request_handler_search => 'primo'
     }
 
     config.mapping = {
+      'test' => {
+        :xsl => 'solr2pnx_source_1.xsl',
+        :filter => 'dtupub'
+      }
     }    
     
   end
