@@ -106,8 +106,8 @@
 						<pnx:language>
 							<xsl:choose>
 								<!--TODO: verify that language is part of request handler response -->
-								<xsl:when test="string-length(str[@name='isolanguage_ss']) &gt; 0">
-									<xsl:value-of select="str[@name='isolanguage_ss']" />
+								<xsl:when test="string-length(arr[@name='isolanguage_ss']) &gt; 0">
+									<xsl:value-of select="arr[@name='isolanguage_ss']" />
 								</xsl:when>
 								<xsl:otherwise>und</xsl:otherwise>
 							</xsl:choose>
@@ -149,8 +149,8 @@
 						<xsl:for-each select="arr[@name='keywords_facet']/*">
 							<pnx:topic><xsl:value-of select="." /></pnx:topic>
 						</xsl:for-each>
-						<xsl:if test="string-length(str[@name='isolanguage_ss']) &gt; 0">
-							<pnx:lang><xsl:value-of select="str[@name='isolanguage_ss']" /></pnx:lang>
+						<xsl:if test="string-length(arr[@name='isolanguage_ss']) &gt; 0">
+							<pnx:lang><xsl:value-of select="arr[@name='isolanguage_ss']" /></pnx:lang>
 						</xsl:if>
 						<xsl:if test="string-length(arr[@name='journal_title_ts']) &gt; 0">
 							<pnx:jtitle><xsl:value-of select="arr[@name='journal_title_ts']" /></pnx:jtitle>
