@@ -62,63 +62,52 @@
 						<pnx:type>
 							<xsl:value-of select="$format" />
 						</pnx:type>
-									
-						<pnx:title>	
-							<xsl:variable name="title">
-								<xsl:choose>
-									<xsl:when test="string-length(arr[@name='title_t']) &gt; 0">
-										<xsl:value-of select="arr[@name='title_t']" />
-									</xsl:when>
-									<xsl:otherwise>
-										<xsl:value-of select="arr[@name='attr_name_t']" /> <!-- not verified that it exists-->
-									</xsl:otherwise>
-								</xsl:choose>
-							</xsl:variable>
-							
-							<!-- handle empty title -->
+						<xsl:variable name="title">
 							<xsl:choose>
-								<xsl:when test="string-length($title) = 0">
-									Untitled
+								<xsl:when test="string-length(arr[@name='title_ts']) &gt; 0">
+									<xsl:value-of select="arr[@name='title_ts']" />
 								</xsl:when>
-								<xsl:otherwise>
-									<xsl:value-of select="$title"/>
-								</xsl:otherwise>
+								<xsl:otherwise>Untitled</xsl:otherwise><!-- Title not found -->
 							</xsl:choose>
+						</xsl:variable>
+						
+						<pnx:title>	
+							<xsl:value-of select="$title"/>
 						</pnx:title>
 	
 						<pnx:creator>
 							<!-- author_t -->
 							<xsl:call-template name="join">
-								<xsl:with-param name="valueList" select="arr[@name='author_t']/*"/>
+								<xsl:with-param name="valueList" select="arr[@name='author_ts']/*"/>
 								<xsl:with-param name="separator" select="'; '"/>
 							</xsl:call-template>						
 						</pnx:creator>
 						
 						<!-- pub_date_ti -->
-						<pnx:creationdate><xsl:value-of select="arr[@name='pub_date_ti']"></xsl:value-of></pnx:creationdate>
+						<pnx:creationdate><xsl:value-of select="arr[@name='pub_date_tis']"></xsl:value-of></pnx:creationdate>
 						
-						<xsl:if test="string-length(arr[@name='journal_title_s']) &gt; 0">
+						<xsl:if test="string-length(arr[@name='journal_title_ts']) &gt; 0">
 							<pnx:ispartof>
-								<xsl:value-of select="arr[@name='journal_title_s']" />, volume <xsl:value-of select="arr[@name='journal_vol_s']" /> issue <xsl:value-of select="arr[@name='journal_issue_s']" />, page <xsl:value-of select="arr[@name='journal_page_s']" />
+								<xsl:value-of select="arr[@name='journal_title_ts']" />, volume <xsl:value-of select="arr[@name='journal_vol_ssf']" /> issue <xsl:value-of select="arr[@name='journal_issue_ssf']" />, page <xsl:value-of select="arr[@name='journal_page_ssf']" />
 							</pnx:ispartof>
 						</xsl:if>
 						
 						<pnx:subject>
 							<xsl:call-template name="join">
-								<xsl:with-param name="valueList" select="arr[@name='keywords_t']/*"/>
+								<xsl:with-param name="valueList" select="arr[@name='keywords_ts']/*"/>
 								<xsl:with-param name="separator" select="'; '"/>
 							</xsl:call-template>
 						</pnx:subject>
 						
 						<pnx:description>
-							<xsl:value-of select="arr[@name='abstract_t']" />
+							<xsl:value-of select="arr[@name='abstract_ts']" />
 						</pnx:description>
 						
 						<pnx:language>
 							<xsl:choose>
 								<!--TODO: verify that language is part of request handler response -->
-								<xsl:when test="string-length(str[@name='iso_language_s']) &gt; 0">
-									<xsl:value-of select="str[@name='iso_language_s']" />
+								<xsl:when test="string-length(str[@name='isolanguage_ss']) &gt; 0">
+									<xsl:value-of select="str[@name='isolanguage_ss']" />
 								</xsl:when>
 								<xsl:otherwise>und</xsl:otherwise>
 							</xsl:choose>
@@ -134,7 +123,7 @@
 			                </xsl:element>
 			            </xsl:if>
 						-->
-						<xsl:for-each select="arr[@name='issn_s']/* | arr[@name='isbn_s']/*">
+						<xsl:for-each select="arr[@name='issn_ss']/* | arr[@name='isbn_ss']/*">
 							<pnx:identifier><xsl:value-of select="." /></pnx:identifier>
 						</xsl:for-each>
 						
@@ -152,7 +141,7 @@
 					</pnx:links>
 					
 					<pnx:facets>
-						<pnx:creationdate><xsl:value-of select="arr[@name='pub_date_ti']" /></pnx:creationdate>
+						<pnx:creationdate><xsl:value-of select="arr[@name='pub_date_tis']" /></pnx:creationdate>
 						<xsl:for-each select="arr[@name='author_facet']/*">
 							<pnx:creatorcontrib><xsl:value-of select="." /></pnx:creatorcontrib>
 						</xsl:for-each>
@@ -160,11 +149,11 @@
 						<xsl:for-each select="arr[@name='keywords_facet']/*">
 							<pnx:topic><xsl:value-of select="." /></pnx:topic>
 						</xsl:for-each>
-						<xsl:if test="string-length(str[@name='iso_language_s']) &gt; 0">
-							<pnx:lang><xsl:value-of select="str[@name='iso_language_s']" /></pnx:lang>
+						<xsl:if test="string-length(str[@name='isolanguage_ss']) &gt; 0">
+							<pnx:lang><xsl:value-of select="str[@name='isolanguage_ss']" /></pnx:lang>
 						</xsl:if>
-						<xsl:if test="string-length(arr[@name='journal_title_s']) &gt; 0">
-							<pnx:jtitle><xsl:value-of select="arr[@name='journal_title_s']" /></pnx:jtitle>
+						<xsl:if test="string-length(arr[@name='journal_title_ts']) &gt; 0">
+							<pnx:jtitle><xsl:value-of select="arr[@name='journal_title_ts']" /></pnx:jtitle>
 						</xsl:if>
 						
 						<!-- TODO: add prefilter ('ntis' = 'reports' else = 'all_text') -->
@@ -179,24 +168,24 @@
 	
 					<!--TODO: add missing stuff in this section-->
 					<pnx:addata>
-						<xsl:for-each select="arr[@name='doi_s']/*">
+						<xsl:for-each select="arr[@name='doi_ss']/*">
 							<pnx:doi><xsl:value-of select="." /></pnx:doi>
 						</xsl:for-each>
 						<pnx:format><xsl:value-of select="$format"</pnx:format>
-						<xsl:if test="string-length(arr[@name='journal_title_s']) &gt; 0">
-							<pnx:jtitle><xsl:value-of select="arr[@name='journal_title_s']"</pnx:jtitle>
+						<xsl:if test="string-length(arr[@name='journal_title_ts']) &gt; 0">
+							<pnx:jtitle><xsl:value-of select="arr[@name='journal_title_ts']"</pnx:jtitle>
 						</xsl:if>
-						<xsl:if test="string-length(arr[@name='pub_date_ti']) &gt; 0">
-							<pnx:date><xsl:value-of select="arr[@name='pub_date_ti']"</pnx:date>
+						<xsl:if test="string-length(arr[@name='pub_date_tis']) &gt; 0">
+							<pnx:date><xsl:value-of select="arr[@name='pub_date_tis']"</pnx:date>
 						</xsl:if>
-						<xsl:if test="string-length(arr[@name='journal_vol_s']) &gt; 0">
-							<pnx:volume><xsl:value-of select="arr[@name='journal_vol_s']"</pnx:volume>
+						<xsl:if test="string-length(arr[@name='journal_vol_ssf']) &gt; 0">
+							<pnx:volume><xsl:value-of select="arr[@name='journal_vol_ssf']"</pnx:volume>
 						</xsl:if>
-						<xsl:if test="string-length(arr[@name='journal_issue_s']) &gt; 0">
-							<pnx:issue><xsl:value-of select="arr[@name='journal_issue_s']"</pnx:issue>
+						<xsl:if test="string-length(arr[@name='journal_issue_ssf']) &gt; 0">
+							<pnx:issue><xsl:value-of select="arr[@name='journal_issue_ssf']"</pnx:issue>
 						</xsl:if>
-						<xsl:if test="string-length(arr[@name='journal_page_s']) &gt; 0">
-							<pnx:pages><xsl:value-of select="arr[@name='journal_page_s']"</pnx:pages>
+						<xsl:if test="string-length(arr[@name='journal_page_ssf']) &gt; 0">
+							<pnx:pages><xsl:value-of select="arr[@name='journal_page_ssf']"</pnx:pages>
 						</xsl:if>
 					</pnx:addata>   
 	            </pnx:record>
