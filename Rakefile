@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-PrimoProxy::Application.load_tasks
+FinditProxy::Application.load_tasks

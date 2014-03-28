@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.16'
+gem 'rails', '3.2.17'
 
 gem 'pg'
 gem 'rsolr'
@@ -8,8 +8,6 @@ gem 'libxml-ruby'
 gem 'libxslt-ruby'
 gem 'nokogiri'
 gem 'memcache-client'
-gem "gelf"
-gem "lograge"
 
 group :test, :development do
   gem 'jettywrapper'
@@ -35,10 +33,8 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-
 # Deploy with Capistrano
 gem 'capistrano'
-gem 'rvm-capistrano'
 
 # To use debugger
 # gem 'debugger'

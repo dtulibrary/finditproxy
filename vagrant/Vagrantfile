@@ -3,14 +3,14 @@
 
 Vagrant::Config.run do |config|
   config.vm.box = "wheezy"
-  config.vm.box_url = "http://vagrant.cvt.dk/vagrant-wheezy.box"
+  config.vm.box_url = "http://vagrant.cvt.dk/vagrant-wheezy-apt.box"
 
   config.vm.customize ["modifyvm", :id,
-                       "--name", "primoproxy.vagrant.vm",
+                       "--name", "finditproxy.vagrant.vm",
                       ]
 
   config.vm.network :hostonly, "192.168.207.22"
-  config.vm.host_name = "primoproxy.vagrant.vm"
+  config.vm.host_name = "finditproxy.vagrant.vm"
 
   #config.vm.provision :shell, :inline => "apt-get update"
 

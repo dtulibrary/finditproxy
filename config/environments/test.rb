@@ -1,4 +1,4 @@
-PrimoProxy::Application.configure do
+FinditProxy::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # The test environment is used exclusively to run your application's
@@ -34,10 +34,10 @@ PrimoProxy::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
-  
+
   # Set cache store
   config.cache_store = :memory_store
-  
+
   # Set (custom) application specific configurations
   config.cache_duration = 1 # (in minutes) (one week = 60*24*7)
 end

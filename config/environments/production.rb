@@ -1,4 +1,4 @@
-PrimoProxy::Application.configure do
+FinditProxy::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
@@ -64,10 +64,10 @@ PrimoProxy::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
-  
+
   # Set cache store
   config.cache_store = :mem_cache_store
-  
+
   # Set (custom) application specific configurations
   config.cache_duration = 1 # (in minutes) (one week = 60*24*7)
 end

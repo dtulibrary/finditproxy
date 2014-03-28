@@ -1,8 +1,16 @@
 require 'bundler/capistrano'
 
-set :rails_env, ENV['RAILS_ENV'] || 'staging'
-set :application, ENV['HOST'] || 'primoproxy.vagrant.vm'
-set :primoproxy_config, ENV['PRIMOPROXY_CONFIG'] || "#{rails_env}"
+if(variables.include?(:environment))
+  set :rails_env, "#{environment}"
+else
+  set :rails_env, "staging"
+end
+
+if(variables.include?(:host))
+  set :application, "#{host}"
+else
+  set :application, 'finditproxy.vagrant.vm'
+end
 
 set :deploy_to, "/var/www/#{application}"
 role :web, "#{application}"
@@ -16,7 +24,6 @@ set :user, 'capistrano'
 set :use_sudo, false
 set :copy_exclude, %w(.git jetty feature spec)
 
-
 if fetch(:application).end_with?('vagrant.vm')
   set :scm, :none
   set :repository, '.'
@@ -26,8 +33,12 @@ if fetch(:application).end_with?('vagrant.vm')
 else
   set :deploy_via, :remote_cache
   set :scm, :git
-  set :scm_username, ENV['CAP_USER']
-  set :repository, ENV['SCM']
+  if(variables.include?(:scm_user))
+    set :scm_username, "#{scm_user}"
+  else
+    set :scm_username, "#{user}"
+  end
+  set :repository, "#{scm_url}"
   if variables.include?(:branch_name)
     set :branch, "#{branch_name}"
   else
@@ -46,7 +57,6 @@ namespace :config do
   task :symlink do
     run "ln -nfs #{deploy_to}/shared/config/application.local.rb #{release_path}/config/application.local.rb"
     run "ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
-    run "ln -nfs #{deploy_to}/shared/config/api.yml #{release_path}/config/api.yml"
   end
 end
 

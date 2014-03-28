@@ -9,7 +9,7 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-module PrimoProxy
+module FinditProxy
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -58,7 +58,7 @@ module PrimoProxy
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-    
+
     ### API Config ###
     config.solr = {
       :url => 'http://localhost:8983/solr/metastore',
@@ -70,7 +70,7 @@ module PrimoProxy
         :xsl => 'solr2pnx_source_1.xsl',
         :filter => 'dtupub'
       }
-    }    
-    
+    }
+
   end
 end
