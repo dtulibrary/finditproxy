@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.17'
+gem 'rails', '3.2.18'
 
 gem 'pg'
 gem 'rsolr'
@@ -19,14 +19,14 @@ group :test, :development do
 end
 
 group :development do
-  gem 'brakeman'
+  gem 'brakeman', '~> 1.9'
   gem 'rails_best_practices'
 end
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
+  gem 'sass-rails'
   gem 'coffee-rails', '~> 3.2.1'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
