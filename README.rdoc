@@ -1,10 +1,27 @@
-== DADS Primo Proxy
-The purpose of the DADS Primo Proxy is to enable Primo installations to search in DTIC's Solr, while transforming search results to PNX format making them understandable for Primo.
+==  FindItProxy
 
-== Requirements
-In order to use DADS Primo Proxy:
+The purpose of the FindItProxy is to enable (registered) external
+applications to search in DTIC's Solr index. Access control is
+enforced by API-keys. Each API-key maps to a request-handler and a
+filter-query. The search result may (optionally) be transformed before
+it is returned to the application. E.g. transform search results to
+PNX format making them understandable for Primo.
+
+== Requirements for general applications
+
+Must use a registered API-key. The API-key must be supplied as last path
+component. Query (and other solr parameters) is passed as regular url
+parameters.
+
+Example: http://finditproxy.cvt.dk/{API-key}?q=*:*
+
+
+== Requirements for Primo
+
+In order to use FindItProxy:
 1. The steps described on our wiki (https://infoshare.dtv.dk/twiki/bin/view/DADS/3rdNodeInterface) must have been completed.
 2. The given Primo installation must have installed the DTIC 3rd Node Adapter.
 
-== Queries and Parameters
+=== Queries and Parameters
+
 See https://infoshare.dtv.dk/twiki/bin/view/DADS/3rdNodeInterface
