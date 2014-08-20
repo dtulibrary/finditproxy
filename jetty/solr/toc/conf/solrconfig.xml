@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
     <abortOnConfigurationError>${solr.abortOnConfigurationError:true}</abortOnConfigurationError>
-    <luceneMatchVersion>LUCENE_42</luceneMatchVersion>
+    <luceneMatchVersion>LUCENE_46</luceneMatchVersion>
     <dataDir>${solr.data.dir:}</dataDir>
     <directoryFactory name="DirectoryFactory" class="${solr.directoryFactory:solr.StandardDirectoryFactory}"/>
 
     <indexConfig>
         <useCompoundFile>false</useCompoundFile>
-        <ramBufferSizeMB>1024</ramBufferSizeMB>
-        <mergeFactor>10</mergeFactor>
+        <ramBufferSizeMB>128</ramBufferSizeMB>
         <maxBufferedDocs>1073741824</maxBufferedDocs>
+        <maxIndexingThreads>8</maxIndexingThreads>
         <unlockOnStartup>false</unlockOnStartup>
         <reopenReaders>true</reopenReaders>
         <maxFieldLength>32768</maxFieldLength>
@@ -20,7 +20,7 @@
         <mergePolicy class="org.apache.lucene.index.TieredMergePolicy">
             <int name="maxMergeAtOnceExplicit">30</int>
             <int name="maxMergeAtOnce">10</int>
-            <double name="segmentsPerTier">20</double>
+            <double name="segmentsPerTier">10</double>
             <double name="maxMergedSegmentMB">20000</double>
         </mergePolicy>
 
@@ -35,8 +35,8 @@
             <str name="dir">${solr.ulog.dir:}</str>
         </updateLog>
         <autoCommit>
-            <maxTime>15000</maxTime>
-            <maxDocs>100000</maxDocs>
+            <maxTime>30000</maxTime>
+            <maxDocs>250000</maxDocs>
             <openSearcher>false</openSearcher>
         </autoCommit>
     </updateHandler>
@@ -46,7 +46,7 @@
     <requestDispatcher handleSelect="true">
         <requestParsers enableRemoteStreaming="false"
                         multipartUploadLimitInKB="2048000"/>
-        <httpCaching lastModFrom="openTime" etagSeed="Solr">
+        <httpCaching lastModFrom="dirLastMod" etagSeed="Solr">
             <cacheControl>max-age=86400, public, must-revalidate</cacheControl>
         </httpCaching>
     </requestDispatcher>
@@ -57,24 +57,24 @@
         <maxWarmingSearchers>2</maxWarmingSearchers>
 
         <filterCache class="solr.FastLRUCache"
-                     size="20480"
-                     initialSize="10240"
-                     autowarmCount="10240"/>
+                     size="2000"
+                     initialSize="1000"
+                     autowarmCount="50"/>
 
         <queryResultCache class="solr.LRUCache"
-                          size="2048"
-                          initialSize="1024"
-                          autowarmCount="1024"/>
+                          size="200"
+                          initialSize="100"
+                          autowarmCount="50"/>
 
         <documentCache class="solr.LRUCache"
-                       size="2048"
-                       initialSize="1024"
-                       autowarmCount="1024"/>
+                       size="200"
+                       initialSize="100"
+                       autowarmCount="50"/>
 
         <fieldValueCache class="solr.FastLRUCache"
-                         size="2048"
-                         autowarmCount="1024"
-                         showItems="32"/>
+                         size="10"
+                         autowarmCount="10"
+                         showItems="10"/>
 
         <listener event="firstSearcher" class="solr.QuerySenderListener"/>
         <listener event="newSearcher" class="solr.QuerySenderListener"/>
@@ -84,7 +84,24 @@
         <lst name="defaults">
             <str name="echoParams">explicit</str>
             <str name="fl">*</str>
-            <str name="sort">issn asc,year desc,vol desc,issue asc</str>
+            <str name="sort">pub_date_tsort desc,journal_vol_tsort desc,journal_issue_tsort asc</str>
+        </lst>
+    </requestHandler>
+
+    <requestHandler name="/ping" class="solr.SearchHandler" default="false">
+        <lst name="defaults">
+            <str name="echoParams">explicit</str>
+            <str name="q">*:*</str>
+            <str name="rows">0</str>
+            <str name="fl">*,score</str>
+        </lst>
+    </requestHandler>
+
+    <requestHandler name="/toshokan" class="solr.SearchHandler" default="false">
+        <lst name="defaults">
+            <str name="echoParams">explicit</str>
+            <str name="fl">*</str>
+            <str name="sort">pub_date_tsort desc,journal_vol_tsort desc,journal_issue_tsort asc</str>
         </lst>
     </requestHandler>
 

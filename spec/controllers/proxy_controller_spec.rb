@@ -28,10 +28,10 @@ describe ProxyController do
         end
 
         it "assigns counts and doc indices" do
-          doc.xpath("//search:DOCSET/@TOTALHITS").first.content.to_i.should be == 15
+          doc.xpath("//search:DOCSET/@TOTALHITS").first.content.to_i.should be == 22
           doc.xpath("//search:DOCSET/@FIRSTHIT").first.content.to_i.should be == 1
           doc.xpath("//search:DOCSET/@LASTHIT").first.content.to_i.should be == 10
-          doc.xpath("//search:FACET[@NAME='type']/search:FACET_VALUES[@KEY='article']/@VALUE").first.content.to_i.should be == 15
+          doc.xpath("//search:FACET[@NAME='type']/search:FACET_VALUES[@KEY='article']/@VALUE").first.content.to_i.should be == 22
           doc.xpath("//search:DOCSET/search:DOC[1]/@ID").first.content.to_i.should be == 1
           doc.xpath("//search:DOCSET/search:DOC[7]/@ID").first.content.to_i.should be == 7
         end
@@ -39,10 +39,10 @@ describe ProxyController do
         it "assigns counts and doc indices for subsequent page" do
           get :index, :key => 'pnx', "x-lquery" => "integer", :startRecord => 11, "x-nofacets" => 1, :format => :xml
           doc = Nokogiri::XML.parse(response.body)
-          doc.xpath("//search:DOCSET/@TOTALHITS").first.content.to_i.should be == 15
+          doc.xpath("//search:DOCSET/@TOTALHITS").first.content.to_i.should be == 22
           doc.xpath("//search:DOCSET/@FIRSTHIT").first.content.to_i.should be == 11
-          doc.xpath("//search:DOCSET/@LASTHIT").first.content.to_i.should be == 15
-          doc.xpath("//search:FACET[@NAME='type']/search:FACET_VALUES[@KEY='article']/@VALUE").first.content.to_i.should be == 15
+          doc.xpath("//search:DOCSET/@LASTHIT").first.content.to_i.should be == 20
+          doc.xpath("//search:FACET[@NAME='type']/search:FACET_VALUES[@KEY='article']/@VALUE").first.content.to_i.should be == 22
           doc.xpath("//search:DOCSET/search:DOC[1]/@ID").first.content.to_i.should be == 11
           doc.xpath("//search:DOCSET/search:DOC[2]/@ID").first.content.to_i.should be == 12
         end
