@@ -22,7 +22,7 @@ default_run_options[:pty] = true
 ssh_options[:forward_agent] = false
 set :user, 'capistrano'
 set :use_sudo, false
-set :copy_exclude, %w(.git jetty feature spec)
+set :copy_exclude, %w(.git jetty feature spec vagrant)
 
 if fetch(:application).end_with?('vagrant.vm')
   set :scm, :none
