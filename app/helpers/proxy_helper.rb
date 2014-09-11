@@ -7,7 +7,7 @@ module ProxyHelper
     Rails.application.config.mapping[api_key]
   end
 
-  def has_mapping(api_key)
+  def has_mapping(version, api_key, service)
     Rails.application.config.mapping.has_key?(api_key)
   end
   
@@ -75,18 +75,6 @@ module ProxyHelper
       #logger.debug "  PNX result: #{pnx_doc}"
     }*1000
     logger.debug "  Transformation time: #{@transform_time} ms"
-
-
-    ### Validate the transformation result ###
-    @validate_time = Benchmark.realtime {
-      xsd = Nokogiri::XML::Schema(File.read("#{Rails.root}/xsd/jag_search_v1.0.xsd"))
-      
-      ### Log validation errors (if any) ###
-      xsd.validate(pnx_doc).each do |error|
-        logger.warn("  Schema validation error: #{error.message}")
-      end
-    }*1000
-    logger.debug "  Validation time: #{@validate_time} ms"
           
     pnx_doc
   end
