@@ -283,9 +283,7 @@
             <str name="f.page.qf"           >journal_page_start_tsort</str>
 
             <str name="f.alert_timestamp.qf">alert_timestamp_dt</str>
-        </lst>
 
-        <lst name="appends">
             <str name="fq">access_ss:dtu</str>
         </lst>
 
